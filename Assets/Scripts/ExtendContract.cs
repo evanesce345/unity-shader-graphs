@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ExtendContract : MonoBehaviour
 {
-    [Range(0, 1)] public float extendSpeed;
+    [Range(0, 20)] public float extendSpeed;
     public GameObject blade;
 
-    private bool state;
+    public bool state;
     private float minScale;
     private float maxScale;
     private float interpol;

@@ -99,11 +99,40 @@ public class PlayerController : MonoBehaviour
             _PlayerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
     }
 
+    [Header("Extend")]
+    public float extendCooldown = 1f;
+
+    private bool readyToExtend = true;
+    private bool extending = false;
+
+    void Extend()
+    {
+        if (!readyToExtend || extending) return;
+
+        readyToExtend = false;
+        extending = true;
+
+        Invoke(nameof(ResetExtend), extendCooldown);
+
+        contract.Extend();
+
+        if (contract.state)
+        { audioSource.PlayOneShot(sheatheSound); } 
+        else
+        { audioSource.PlayOneShot(extendSound); }
+    }
+
+    void ResetExtend()
+    {
+        readyToExtend = true;
+        extending = false;
+    }
+
     void AssignInputs()
     {
         input.Jump.performed += ctx => Jump();
         input.Attack.started += ctx => Attack();
-        input.Saber.started += ctx => contract.Extend();
+        input.Saber.started += ctx => Extend();
     }
 
     // ---------- //
@@ -153,6 +182,8 @@ public class PlayerController : MonoBehaviour
     public GameObject hitEffect;
     public AudioClip swordSwing;
     public AudioClip hitSound;
+    public AudioClip extendSound;
+    public AudioClip sheatheSound;
 
     bool attacking = false;
     bool readyToAttack = true;
@@ -168,8 +199,11 @@ public class PlayerController : MonoBehaviour
         Invoke(nameof(ResetAttack), attackSpeed);
         Invoke(nameof(AttackRaycast), attackDelay);
 
-        audioSource.pitch = Random.Range(0.9f, 1.1f);
-        audioSource.PlayOneShot(swordSwing);
+        if (contract.state)
+        {
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.PlayOneShot(swordSwing);
+        }
 
         if(attackCount == 0)
         {
@@ -191,6 +225,8 @@ public class PlayerController : MonoBehaviour
 
     void AttackRaycast()
     {
+        if (!contract.state) return;
+
         if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, attackDistance, attackLayer))
         { 
             HitTarget(hit.point);

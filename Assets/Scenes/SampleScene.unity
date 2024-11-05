@@ -1039,6 +1039,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   extendSpeed: 0.1
   blade: {fileID: 293305277}
+  state: 0
 --- !u!4 &1240643200
 Transform:
   m_ObjectHideFlags: 0
@@ -1513,8 +1514,9 @@ MonoBehaviour:
   jumpHeight: 1.2
   cam: {fileID: 330585545}
   sensitivity: 5
+  extendCooldown: 1
   attackDistance: 3
-  attackDelay: 2
+  attackDelay: 0.7
   attackSpeed: 1
   attackDamage: 1
   attackLayer:
@@ -1522,8 +1524,10 @@ MonoBehaviour:
     m_Bits: 64
   hitEffect: {fileID: 5334228485563152753, guid: 0134bdc80242c974b88f68d7bb298ed9,
     type: 3}
-  swordSwing: {fileID: 0}
-  hitSound: {fileID: 0}
+  swordSwing: {fileID: 8300000, guid: 774db06fa7e340b4d81ddaf31616a64b, type: 3}
+  hitSound: {fileID: 8300000, guid: e85a70a8273d7584a8f7dfd6b8f1c6d0, type: 3}
+  extendSound: {fileID: 8300000, guid: e5933af7512214b4c8ba0cfa30bb1d13, type: 3}
+  sheatheSound: {fileID: 8300000, guid: c02d9c6d1dcbae248a19e53c2d30db53, type: 3}
 --- !u!82 &2039877927
 AudioSource:
   m_ObjectHideFlags: 0
