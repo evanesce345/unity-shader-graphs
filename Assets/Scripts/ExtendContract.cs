@@ -29,17 +29,18 @@ public class ExtendContract : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            interpol = state ? -Mathf.Abs(interpol) : Mathf.Abs(interpol);
-        }
         currScale += interpol * Time.deltaTime;
         currScale = Mathf.Clamp(currScale, minScale, maxScale);
         transform.localScale = new Vector3(initialX, currScale, initialZ);
         state = currScale > 0f;
 
         blade.SetActive(state);
+    }
+
+    public void Extend()
+    {
+            interpol = state ? -Mathf.Abs(interpol) : Mathf.Abs(interpol);
     }
 }
