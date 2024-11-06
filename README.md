@@ -16,3 +16,7 @@ This demo showcases a functioning lightsaber in a first-person view.
 **Space** - to jump  
 **E** - to retract/extend lightsaber  
 **Left-click** - to attack
+
+### Link to Demo
+
+https://youtu.be/0Huc2fWTWHc
